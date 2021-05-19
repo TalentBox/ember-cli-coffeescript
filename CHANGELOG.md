@@ -1,5 +1,8 @@
 ## master
 
+## 5.0.0
++ Upgrade dependencies. Minimum node version required is now 12+.
+
 ## 4.0.0
 + Switch from CoffeeLint to @coffeelint/cli. Thanks to @boris-petrov!
 

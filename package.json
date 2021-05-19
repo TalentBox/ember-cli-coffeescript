@@ -1,6 +1,6 @@
 {
   "name": "@eflexsystems/ember-cli-coffeescript",
-  "version": "4.0.3",
+  "version": "5.0.0",
   "description": "Adds precompilation of CoffeeScript files and all the basic generation types to the `ember generate` command.",
   "keywords": [
     "ember-addon",
