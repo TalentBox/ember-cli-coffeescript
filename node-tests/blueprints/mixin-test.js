@@ -8,14 +8,14 @@ var emberGenerateDestroy = blueprintHelpers.emberGenerateDestroy;
 var expect = require('ember-cli-blueprint-test-helpers/chai').expect;
 var expectCoffee = require('../helpers/expect-coffee');
 
-describe('Acceptance: ember generate and destroy mixin', function() {
+describe('Acceptance: ember generate and destroy mixin', function () {
   setupTestHooks(this);
 
-  it('mixin foo-bar', function() {
+  it('mixin foo-bar', function () {
     var args = ['mixin', 'foo-bar'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var mixinFile = file('app/mixins/foo-bar.coffee');
 
         expect(mixinFile)
@@ -36,14 +36,15 @@ describe('Acceptance: ember generate and destroy mixin', function() {
           .to.contain('subject = FooBarObject.create()');
 
         expectCoffee(mixinTestFile);
-    }));
+      })
+    );
   });
 
-  it('mixin-test foo-bar', function() {
+  it('mixin-test foo-bar', function () {
     var args = ['mixin-test', 'foo-bar'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var mixinTestFile = file('tests/unit/mixins/foo-bar-test.coffee');
 
         expect(mixinTestFile)
@@ -55,6 +56,7 @@ describe('Acceptance: ember generate and destroy mixin', function() {
           .to.contain('subject = FooBarObject.create()');
 
         expectCoffee(mixinTestFile);
-    }));
+      })
+    );
   });
 });

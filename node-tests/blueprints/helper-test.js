@@ -8,14 +8,14 @@ var emberGenerateDestroy = blueprintHelpers.emberGenerateDestroy;
 var expect = require('ember-cli-blueprint-test-helpers/chai').expect;
 var expectCoffee = require('../helpers/expect-coffee');
 
-describe('Acceptance: ember generate and destroy helper', function() {
+describe('Acceptance: ember generate and destroy helper', function () {
   setupTestHooks(this);
 
-  it('helper foo-bar', function() {
+  it('helper foo-bar', function () {
     var args = ['helper', 'foo-bar'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var helperFile = file('app/helpers/foo-bar.coffee');
 
         expect(helperFile)
@@ -30,9 +30,10 @@ describe('Acceptance: ember generate and destroy helper', function() {
         expect(helperTestFile)
           .to.contain("import { fooBar } from 'my-app/helpers/foo-bar'")
           .to.contain("module 'Integration | Helper | foo-bar'")
-          .to.contain("result = fooBar 42");
+          .to.contain('result = fooBar 42');
 
         expectCoffee(helperTestFile);
-    }));
+      })
+    );
   });
 });

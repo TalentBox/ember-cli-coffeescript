@@ -8,14 +8,14 @@ var emberGenerateDestroy = blueprintHelpers.emberGenerateDestroy;
 var expect = require('ember-cli-blueprint-test-helpers/chai').expect;
 var expectCoffee = require('../helpers/expect-coffee');
 
-describe('Acceptance: ember generate and destroy component', function() {
+describe('Acceptance: ember generate and destroy component', function () {
   setupTestHooks(this);
 
-  it('component x-foo', function() {
+  it('component x-foo', function () {
     var args = ['component', 'x-foo'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var componentFile = file('app/components/x-foo.coffee');
 
         expect(componentFile)
@@ -25,20 +25,26 @@ describe('Acceptance: ember generate and destroy component', function() {
 
         expectCoffee(componentFile);
 
-        expect(file('app/templates/components/x-foo.hbs'))
-          .to.contain('{{yield}}');
+        expect(file('app/templates/components/x-foo.hbs')).to.contain(
+          '{{yield}}'
+        );
 
-        var componentTestFile = file('tests/integration/components/x-foo-test.coffee');
+        var componentTestFile = file(
+          'tests/integration/components/x-foo-test.coffee'
+        );
 
         expect(componentTestFile)
           .to.contain("import { test, moduleForComponent } from 'ember-qunit'")
           .to.contain("import hbs from 'htmlbars-inline-precompile'")
-          .to.contain("moduleForComponent 'x-foo', 'Integration | Component | x-foo'")
+          .to.contain(
+            "moduleForComponent 'x-foo', 'Integration | Component | x-foo'"
+          )
           .to.contain('integration: true')
           .to.contain('{{x-foo}}')
           .to.contain('{{#x-foo}}');
 
         expectCoffee(componentTestFile);
-    }));
+      })
+    );
   });
 });

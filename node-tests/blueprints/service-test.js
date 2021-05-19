@@ -8,14 +8,14 @@ var emberGenerateDestroy = blueprintHelpers.emberGenerateDestroy;
 var expect = require('ember-cli-blueprint-test-helpers/chai').expect;
 var expectCoffee = require('../helpers/expect-coffee');
 
-describe('Acceptance: ember generate and destroy service', function() {
+describe('Acceptance: ember generate and destroy service', function () {
   setupTestHooks(this);
 
-  it('service foo', function() {
+  it('service foo', function () {
     var args = ['service', 'foo'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var serviceFile = file('app/services/foo.coffee');
 
         expect(serviceFile)
@@ -31,14 +31,15 @@ describe('Acceptance: ember generate and destroy service', function() {
           .to.contain("moduleFor 'service:foo', 'Unit | Service | foo', {");
 
         expectCoffee(serviceTestFile);
-    }));
+      })
+    );
   });
 
-  it('service-test foo', function() {
+  it('service-test foo', function () {
     var args = ['service-test', 'foo'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var serviceTestFile = file('tests/unit/services/foo-test.coffee');
 
         expect(serviceTestFile)
@@ -46,6 +47,7 @@ describe('Acceptance: ember generate and destroy service', function() {
           .to.contain("moduleFor 'service:foo', 'Unit | Service | foo', {");
 
         expectCoffee(serviceTestFile);
-    }));
+      })
+    );
   });
 });

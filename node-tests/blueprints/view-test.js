@@ -8,14 +8,14 @@ var emberGenerateDestroy = blueprintHelpers.emberGenerateDestroy;
 var expect = require('ember-cli-blueprint-test-helpers/chai').expect;
 var expectCoffee = require('../helpers/expect-coffee');
 
-describe('Acceptance: ember generate and destroy view', function() {
+describe('Acceptance: ember generate and destroy view', function () {
   setupTestHooks(this);
 
-  it('view foo', function() {
+  it('view foo', function () {
     var args = ['view', 'foo'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var viewFile = file('app/views/foo.coffee');
 
         expect(viewFile)
@@ -31,14 +31,15 @@ describe('Acceptance: ember generate and destroy view', function() {
           .to.contain("moduleFor 'view:foo', 'Unit | View | foo'");
 
         expectCoffee(viewTestFile);
-    }));
+      })
+    );
   });
 
-  it('view-test foo', function() {
+  it('view-test foo', function () {
     var args = ['view-test', 'foo'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var testFile = file('tests/unit/views/foo-test.coffee');
 
         expect(testFile)
@@ -46,6 +47,7 @@ describe('Acceptance: ember generate and destroy view', function() {
           .to.contain("moduleFor 'view:foo', 'Unit | View | foo'");
 
         expectCoffee(testFile);
-    }));
+      })
+    );
   });
 });

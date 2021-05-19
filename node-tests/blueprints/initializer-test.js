@@ -10,33 +10,38 @@ var expectCoffee = require('../helpers/expect-coffee');
 
 // TODO: Cannot read property 'root' of undefined being thrown by the generator for
 // initializer tests regardless of the contents of the blueprint.
-describe.skip('Acceptance: ember generate and destroy initializer', function() {
+describe.skip('Acceptance: ember generate and destroy initializer', function () {
   setupTestHooks(this);
 
-  it('initializer foo-bar', function() {
+  it('initializer foo-bar', function () {
     var args = ['initializer', 'foo-bar'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var initializerFile = file('app/initializers/foo-bar.coffee');
 
         expect(file('app/initializers/foo-bar.coffee'))
           .to.contain('export initialize = () ->')
           .to.contain('export default {')
           .to.contain("name: 'foo-bar'")
-          .to.contain("initialize: initialize");
+          .to.contain('initialize: initialize');
 
         expectCoffee(initializerFile);
 
-        var initializerTestFile = file('tests/unit/initializers/foo-bar-test.coffee');
+        var initializerTestFile = file(
+          'tests/unit/initializers/foo-bar-test.coffee'
+        );
 
         expect(initializerTestFile)
           .to.contain("import Ember from 'ember'")
-          .to.contain("import { initialize } from 'my-app/initializers/foo-bar'")
+          .to.contain(
+            "import { initialize } from 'my-app/initializers/foo-bar'"
+          )
           .to.contain("import { module, test } from 'qunit'")
           .to.contain("module 'Unit | Initializer | foo bar'");
 
         expectCoffee(initializerTestFile);
-    }));
+      })
+    );
   });
 });

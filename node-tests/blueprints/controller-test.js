@@ -8,14 +8,14 @@ var emberGenerateDestroy = blueprintHelpers.emberGenerateDestroy;
 var expect = require('ember-cli-blueprint-test-helpers/chai').expect;
 var expectCoffee = require('../helpers/expect-coffee');
 
-describe('Acceptance: ember generate and destroy controller', function() {
+describe('Acceptance: ember generate and destroy controller', function () {
   setupTestHooks(this);
 
-  it('controller foo', function() {
+  it('controller foo', function () {
     var args = ['controller', 'foo'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var controllerFile = file('app/controllers/foo.coffee');
 
         expect(controllerFile)
@@ -31,6 +31,7 @@ describe('Acceptance: ember generate and destroy controller', function() {
           .to.contain("moduleFor 'controller:foo'");
 
         expectCoffee(controllerTestFile);
-    }));
+      })
+    );
   });
 });

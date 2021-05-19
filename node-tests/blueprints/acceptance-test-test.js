@@ -8,14 +8,14 @@ var emberGenerateDestroy = blueprintHelpers.emberGenerateDestroy;
 var expect = require('ember-cli-blueprint-test-helpers/chai').expect;
 var expectCoffee = require('../helpers/expect-coffee');
 
-describe('Acceptance: ember generate and destroy acceptance-test', function() {
+describe('Acceptance: ember generate and destroy acceptance-test', function () {
   setupTestHooks(this);
 
-  it('acceptance-test foo', function() {
+  it('acceptance-test foo', function () {
     var args = ['acceptance-test', 'foo'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var acceptanceFile = file('tests/acceptance/foo-test.coffee');
 
         expect(acceptanceFile)
@@ -25,10 +25,11 @@ describe('Acceptance: ember generate and destroy acceptance-test', function() {
           .to.contain("module 'Acceptance: Foo',")
           .to.contain("test 'visiting /foo', (assert) ->")
           .to.contain("visit '/foo'")
-          .to.contain("andThen ->")
+          .to.contain('andThen ->')
           .to.contain("assert.equal currentURL(), '/foo'");
 
         expectCoffee(acceptanceFile);
-    }));
+      })
+    );
   });
 });

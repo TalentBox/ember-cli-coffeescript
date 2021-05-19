@@ -1,9 +1,9 @@
 var ancestralBlueprint = require('../../lib/utilities/ancestral-blueprint');
 
-var fs         = require('fs-extra');
-var path       = require('path');
-var EOL        = require('os').EOL;
-var chalk      = require('chalk');
+var fs = require('fs-extra');
+var path = require('path');
+var EOL = require('os').EOL;
+var chalk = require('chalk');
 
 module.exports = {
   description: 'Generates a route and registers it with the router.',
@@ -12,38 +12,41 @@ module.exports = {
     {
       name: 'path',
       type: String,
-      default: ''
+      default: '',
     },
     {
       name: 'skip-router',
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   ],
 
-  fileMapTokens: function() {
-    var blueprint = ancestralBlueprint('route', this.project)
+  fileMapTokens: function () {
+    var blueprint = ancestralBlueprint('route', this.project);
     return blueprint.fileMapTokens.apply(blueprint, arguments);
   },
 
-  shouldTouchRouter: function(name, options) {
-    return ancestralBlueprint('route', this.project).shouldTouchRouter(name, options);
+  shouldTouchRouter: function (name, options) {
+    return ancestralBlueprint('route', this.project).shouldTouchRouter(
+      name,
+      options
+    );
   },
 
-  afterInstall: function(options) {
+  afterInstall: function (options) {
     updateRouter.call(this, 'add', options);
   },
 
-  afterUninstall: function(options) {
+  afterUninstall: function (options) {
     updateRouter.call(this, 'remove', options);
-  }
+  },
 };
 
 function updateRouter(action, options) {
   var entity = options.entity;
   var actionColorMap = {
     add: 'green',
-    remove: 'red'
+    remove: 'red',
   };
   var color = actionColorMap[action] || 'gray';
 
@@ -59,7 +62,12 @@ function findRouter(options) {
   var routerPathParts = [options.project.root];
 
   if (options.dummy && options.project.isEmberCLIAddon()) {
-    routerPathParts = routerPathParts.concat(['tests', 'dummy', 'app', 'router.coffee']);
+    routerPathParts = routerPathParts.concat([
+      'tests',
+      'dummy',
+      'app',
+      'router.coffee',
+    ]);
   } else {
     routerPathParts = routerPathParts.concat(['app', 'router.coffee']);
   }
@@ -82,18 +90,25 @@ function writeRoute(action, name, options) {
 }
 
 function removeRouteFromRouter(name, oldContent) {
-  var existence  = new RegExp("(?:route|resource)\\s?\\(?\\s?(['\"])" + name + "\\1");
+  var existence = new RegExp(
+    '(?:route|resource)\\s?\\(?\\s?([\'"])' + name + '\\1'
+  );
 
   if (!existence.test(oldContent)) {
     return oldContent;
   }
 
-  var re = new RegExp('^\\s*@route\\s*\\(?(["\'])\\s*'+ name +'\\s*\\1\\)?', 'm');
+  var re = new RegExp(
+    '^\\s*@route\\s*\\(?(["\'])\\s*' + name + '\\s*\\1\\)?',
+    'm'
+  );
   return oldContent.replace(re, '');
 }
 
 function addRouteToRouter(name, oldContent) {
-  var existence = new RegExp("(?:route|resource)\\s?\\(?\\s?(['\"])" + name + "\\1");
+  var existence = new RegExp(
+    '(?:route|resource)\\s?\\(?\\s?([\'"])' + name + '\\1'
+  );
 
   if (existence.test(oldContent)) {
     return oldContent;
@@ -103,6 +118,6 @@ function addRouteToRouter(name, oldContent) {
 
   return oldContent.replace(
     funcRegex,
-    "$1  @route '" + name + "'" + EOL + "$2"
+    "$1  @route '" + name + "'" + EOL + '$2'
   );
 }

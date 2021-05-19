@@ -8,14 +8,14 @@ var emberGenerateDestroy = blueprintHelpers.emberGenerateDestroy;
 var expect = require('ember-cli-blueprint-test-helpers/chai').expect;
 var expectCoffee = require('../helpers/expect-coffee');
 
-describe('Acceptance: ember generate and destroy serializer', function() {
+describe('Acceptance: ember generate and destroy serializer', function () {
   setupTestHooks(this);
 
-  it('serializer foo', function() {
+  it('serializer foo', function () {
     var args = ['serializer', 'foo'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var serializerFile = file('app/serializers/foo.coffee');
 
         expect(serializerFile)
@@ -32,14 +32,15 @@ describe('Acceptance: ember generate and destroy serializer', function() {
           .to.contain("needs: ['serializer:foo']");
 
         expectCoffee(serializerTestFile);
-    }));
+      })
+    );
   });
 
-  it('serializer-test foo', function() {
+  it('serializer-test foo', function () {
     var args = ['serializer-test', 'foo'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var testFile = file('tests/unit/serializers/foo-test.coffee');
 
         expect(testFile)
@@ -48,6 +49,7 @@ describe('Acceptance: ember generate and destroy serializer', function() {
           .to.contain("needs: ['serializer:foo']");
 
         expectCoffee(testFile);
-    }));
+      })
+    );
   });
 });

@@ -7,15 +7,16 @@ var emberGenerateDestroy = blueprintHelpers.emberGenerateDestroy;
 
 var expect = require('ember-cli-blueprint-test-helpers/chai').expect;
 
-describe('Acceptance: ember generate and destroy template', function() {
+describe('Acceptance: ember generate and destroy template', function () {
   setupTestHooks(this);
 
-  it('template foo', function() {
+  it('template foo', function () {
     var args = ['template', 'foo'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         expect(file('app/templates/foo.hbs')).to.exist;
-    }));
+      })
+    );
   });
 });

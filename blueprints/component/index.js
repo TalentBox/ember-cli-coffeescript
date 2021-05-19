@@ -8,23 +8,21 @@ module.exports = {
       name: 'path',
       type: String,
       default: 'components',
-      aliases: [
-        { 'no-path': '' }
-      ]
-    }
+      aliases: [{ 'no-path': '' }],
+    },
   ],
 
-  fileMapTokens: function() {
+  fileMapTokens: function () {
     var blueprint = ancestralBlueprint('component', this.project);
     return blueprint.fileMapTokens.apply(blueprint, arguments);
   },
 
-  normalizeEntityName: function() {
+  normalizeEntityName: function () {
     var blueprint = ancestralBlueprint('component', this.project);
     return blueprint.normalizeEntityName.apply(blueprint, arguments);
   },
 
-  locals: function() {
+  locals: function () {
     var blueprint = ancestralBlueprint('component', this.project);
     var locals = blueprint.locals.apply(blueprint, arguments);
 
@@ -43,5 +41,5 @@ module.exports = {
     locals.importTemplate = locals.importTemplate.replace(/;/, '');
 
     return locals;
-  }
+  },
 };

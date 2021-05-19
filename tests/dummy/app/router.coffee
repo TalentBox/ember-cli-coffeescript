@@ -1,5 +1,5 @@
-import Ember from 'ember'
-import config from './config/environment'
+import EmberRouter from '@ember/routing/router'
+import config from 'dummy/config/environment'
 
 Router = Ember.Router.extend
   location: config.locationType

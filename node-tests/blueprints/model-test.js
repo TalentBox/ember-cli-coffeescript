@@ -8,14 +8,14 @@ var emberGenerateDestroy = blueprintHelpers.emberGenerateDestroy;
 var expect = require('ember-cli-blueprint-test-helpers/chai').expect;
 var expectCoffee = require('../helpers/expect-coffee');
 
-describe('Acceptance: ember generate and destroy model', function() {
+describe('Acceptance: ember generate and destroy model', function () {
   setupTestHooks(this);
 
-  it('model foo', function() {
+  it('model foo', function () {
     var args = ['model', 'foo'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var modelFile = file('app/models/foo.coffee');
 
         expect(modelFile)
@@ -29,23 +29,24 @@ describe('Acceptance: ember generate and destroy model', function() {
         expect(modelTestFile)
           .to.contain("import { moduleForModel, test } from 'ember-qunit'")
           .to.contain("moduleForModel 'foo', 'Unit | Model | foo', {")
-          .to.contain("needs: []");
+          .to.contain('needs: []');
 
         expectCoffee(modelTestFile);
-    }));
+      })
+    );
   });
 
-  it('model-test foo', function() {
+  it('model-test foo', function () {
     var args = ['model-test', 'foo'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var modelTestFile = file('tests/unit/models/foo-test.coffee');
 
-        expect(modelTestFile)
-          .to.contain("moduleForModel 'foo'");
+        expect(modelTestFile).to.contain("moduleForModel 'foo'");
 
         expectCoffee(modelTestFile);
-    }));
+      })
+    );
   });
 });

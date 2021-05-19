@@ -8,18 +8,17 @@ var emberGenerateDestroy = blueprintHelpers.emberGenerateDestroy;
 var expect = require('ember-cli-blueprint-test-helpers/chai').expect;
 var expectCoffee = require('../helpers/expect-coffee');
 
-describe('Acceptance: ember generate and destroy util', function() {
+describe('Acceptance: ember generate and destroy util', function () {
   setupTestHooks(this);
 
-  it('util foo-bar', function() {
+  it('util foo-bar', function () {
     var args = ['util', 'foo-bar'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var utilFile = file('app/utils/foo-bar.coffee');
 
-        expect(utilFile)
-          .to.contain('export default () ->');
+        expect(utilFile).to.contain('export default () ->');
 
         expectCoffee(utilFile);
 
@@ -33,14 +32,15 @@ describe('Acceptance: ember generate and destroy util', function() {
           .to.contain('result = fooBar()');
 
         expectCoffee(utilTestFile);
-    }));
+      })
+    );
   });
 
-  it('util-test foo-bar', function() {
+  it('util-test foo-bar', function () {
     var args = ['util-test', 'foo-bar'];
 
-    return emberNew()
-      .then(() => emberGenerateDestroy(args, (file) => {
+    return emberNew().then(() =>
+      emberGenerateDestroy(args, (file) => {
         var testFile = file('tests/unit/utils/foo-bar-test.coffee');
 
         expect(testFile)
@@ -50,6 +50,7 @@ describe('Acceptance: ember generate and destroy util', function() {
           .to.contain('result = fooBar()');
 
         expectCoffee(testFile);
-    }));
+      })
+    );
   });
 });
