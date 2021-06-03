@@ -28,9 +28,4 @@ module.exports = {
 
     registry.add('js', plugin);
   },
-
-  included: function (app) {
-    this.app = app;
-    this.setupPreprocessorRegistry('parent', app.registry);
-  },
 };
